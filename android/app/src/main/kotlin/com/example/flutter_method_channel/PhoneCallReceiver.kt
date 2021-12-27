@@ -78,6 +78,8 @@ class PhoneCallReceiver : BroadcastReceiver()
             Log.i(TAG, "${MSG}booApp : phoneNumber = ${phoneNumber}")
             startIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
             startIntent.putExtra("phoneNumber", phoneNumber)
+//            MainActivityのライフサイクルメソッドのどれかで、
+//            intentを扱えれば、そのメソッドからメソッドチャネルが使えるのでしょうか？
             context.startActivity(startIntent)
         }
     }
