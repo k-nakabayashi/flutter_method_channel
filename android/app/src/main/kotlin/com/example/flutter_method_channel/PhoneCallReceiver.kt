@@ -45,12 +45,13 @@ class PhoneCallReceiver : BroadcastReceiver()
             return
         }
 
-        booApp(context, phoneNumber)//
 
 //        疑問 1
-//        アプリ終了中の場合、
-//        ここでPhoneCallChannelCtrlが設定されるので、
-//        メソッドチャネルが使えるのでは？
+//       アプリ終了中の場合、
+//       BootAppによってアプリが起動されることで
+//       ここでPhoneCallChannelCtrlが設定されるから
+//       メソッドチャネルが使えるのでは？
+        booApp(context, phoneNumber)//
         PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)
     }
 
