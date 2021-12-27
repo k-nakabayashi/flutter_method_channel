@@ -45,7 +45,7 @@ class PhoneCallReceiver : BroadcastReceiver()
             return
         }
 
-        booApp(context, phoneNumber)
+        booApp(context, phoneNumber)//
 
         PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)
     }
