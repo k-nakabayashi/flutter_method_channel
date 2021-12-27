@@ -47,6 +47,10 @@ class PhoneCallReceiver : BroadcastReceiver()
 
         booApp(context, phoneNumber)//
 
+//        疑問 1
+//        アプリ終了中の場合、
+//        ここでPhoneCallChannelCtrlが設定されるので、
+//        メソッドチャネルが使えるのでは？
         PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)
     }
 
@@ -77,9 +81,12 @@ class PhoneCallReceiver : BroadcastReceiver()
         if (startIntent != null) {
             Log.i(TAG, "${MSG}booApp : phoneNumber = ${phoneNumber}")
             startIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+
+//          疑問 2
+//          MainActivityのライフサイクルメソッドのどれかで、
+//          intentを扱えれば、そのメソッドからメソッドチャネルが使えるのでしょうか？
             startIntent.putExtra("phoneNumber", phoneNumber)
-//            MainActivityのライフサイクルメソッドのどれかで、
-//            intentを扱えれば、そのメソッドからメソッドチャネルが使えるのでしょうか？
+
             context.startActivity(startIntent)
         }
     }
