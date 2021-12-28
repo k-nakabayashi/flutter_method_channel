@@ -51,8 +51,8 @@ class PhoneCallReceiver : BroadcastReceiver()
 //      NG Case : this terminated app cann't do it. (this app can just is started.
 
 //      Detail:
-//      This app is started by @booApp and then,
-//      MainActivity@configureFlutterEngine set MethodChannel (which is set PhoneCallChannelCtrl@setup).
+//      This app is started by PhoneCallReceiver@booApp and then,
+//      MainActivity@configureFlutterEngine set MethodChannel (which is set by PhoneCallChannelCtrl@setup).
         booApp(context, phoneNumber)
         PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)
     }
@@ -85,7 +85,7 @@ class PhoneCallReceiver : BroadcastReceiver()
             Log.i(TAG, "${MSG}booApp : phoneNumber = ${phoneNumber}")
             startIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
 
-//          Q2 : How do fluter side catch this intent?
+//          Q2 : How do flutter side catch this intent?
             startIntent.putExtra("phoneNumber", phoneNumber)
 
             context.startActivity(startIntent)
