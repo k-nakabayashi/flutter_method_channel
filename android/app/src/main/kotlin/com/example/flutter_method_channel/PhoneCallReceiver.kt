@@ -46,12 +46,14 @@ class PhoneCallReceiver : BroadcastReceiver()
         }
 
 
-//        疑問 1
-//       アプリ終了中の場合、
-//       BootAppによってアプリが起動されることで
-//       ここでPhoneCallChannelCtrlが設定されるから
-//       メソッドチャネルが使えるのでは？
-        booApp(context, phoneNumber)//
+//      Q1 : What happens the following NG Case? and What can I do?
+//      OK Case : this running app can make PhoneCallReceiver "PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)"
+//      NG Case : this terminated app cann't do it. (this app can just is started.
+
+//      Detail:
+//      This app is started by @booApp and then,
+//      MainActivity@configureFlutterEngine set MethodChannel (which is set PhoneCallChannelCtrl@setup).
+        booApp(context, phoneNumber)
         PhoneCallChannelCtrl.instance?.sendToFLutter(phoneNumber)
     }
 
@@ -83,9 +85,7 @@ class PhoneCallReceiver : BroadcastReceiver()
             Log.i(TAG, "${MSG}booApp : phoneNumber = ${phoneNumber}")
             startIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
 
-//          疑問 2
-//          MainActivityのライフサイクルメソッドのどれかで、
-//          intentを扱えれば、そのメソッドからメソッドチャネルが使えるのでしょうか？
+//          Q2 : How do fluter side catch this intent?
             startIntent.putExtra("phoneNumber", phoneNumber)
 
             context.startActivity(startIntent)
